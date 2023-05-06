@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> <%= pageTitle %> </title>
+</head>
+<body>
+    <form action="/add" method="POST">
+        <h2>Add a New Note.</h1>
+        <input type="number" style="display: none;" name="noteId">
+        <textarea type = text placeholder="Type Note" cols="30" rows="4" name="noteContent"></textarea>
+        <button type="submit">Add Note</button>
+    </form>
+    <main>
+        <% if(noteData.length>0) { %>
+            <h2> Your Notes</h2>
+            <div class="grid">
+                <% for (let note of noteData) { %>
+                    <form action="/update" method="POST">
+                        <input type="number" style="display: none;" name="noteId" value="<%= note.Id %>">
+                        <textarea type = text cols="30" rows="6" name="noteContent" value="<%= note.content %>"> <%= note.content %> </textarea>
+                        <button type="submit"> Update </button>
+                    </form>
+                    <form action="/delete" method="POST">
+                        <input type="number" style="display: none;" name="noteId" value="<%= note.Id %>">
+                        <button type="submit"> X </button>
+                    </form>
+                <% } %>
+            </div>
+        <% } else { %>
+            <h2> Please add notes</h2>
+        <% } %>
+    </main>
+</body>
+</html>
